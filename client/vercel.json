@@ -7,18 +7,6 @@
       "config": {
         "distDir": "dist"
       }
-    },
-    {
-      "src": "index.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "**",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "./src/main.jsx",
-      "use": "@vercel/static"
     }
   ],
   "routes": [
