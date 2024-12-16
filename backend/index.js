@@ -91,8 +91,12 @@ app.get("/api/userchats", requireAuth(), async (req, res) => {
     const userId = req.auth.userId;
 
     try{
-        const userChats = await UserChats.find({userId});
+      const userChats = await UserChats.find({ userId });
+      if (userChats.length > 0) {
         res.status(200).send(userChats[0].chats);
+      } else {
+        res.status(200).send([]); // Return an empty array if no user chats are found
+      }
     } catch(err) {
         console.log(err);
         res.status(500).send("Error fetching userchats!");

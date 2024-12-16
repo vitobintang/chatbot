@@ -58,7 +58,7 @@ const DashboardPage = () => {
       </div>
       <div className="formContainer">
         <form onSubmit={handleSubmit}>
-          <input type="text" name='text' placeholder="Ask me anything..." />
+          <input type="text" name='text' autocomplete="off" placeholder="Ask me anything..." />
           <button>
             <img src="/arrow.png" alt="" />
           </button>
