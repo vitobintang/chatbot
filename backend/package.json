@@ -5,10 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "node index.js",
     "start": "supervisor index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "vercel-build": "npm run build"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
