@@ -11,9 +11,9 @@ const Homepage = () => {
     <div className='homepage'>
       <img src="/orbital.png" alt="" className="orbital"/>
       <div className="left">
-        <h1>LAMA AI</h1>
-        <h2>Supercharge your creativity and productivity</h2>
-        <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus quae vel reprehenderit, corporis dolor.</h3>
+        <h1>MEMI AI</h1>
+        <h2>Empower your brilliance with every conversation.</h2>
+        <h3>Our AI chat companion boosts your productivity by understanding images and engaging in voice conversations, providing a seamless and interactive experience to help you achieve your goals.</h3>
         <Link to="/dashboard">Get Started</Link>
       </div>
       <div className="right">
@@ -26,19 +26,19 @@ const Homepage = () => {
             <img src={typingStatus === "Arthur" ? "/human1.jpeg " : typingStatus === "Rose" ? "/human2.jpeg" : "/bot.png"} alt="" />
             <TypeAnimation
               sequence={[
-                'Arthur: lorem',
+                'Arthur: Hi, how are you?',
                 2000, () => {
                   setTypingStatus("Robot")
                 },
-                'Robot: We produce food for Hamsters',
+                'Robot: Hello, I am good!',
                 2000, () => {
                   setTypingStatus("Rose")
                 },
-                'Rose: We produce food for Guinea Pigs',
+                'Rose: How many people are in the world?',
                 2000, () => {
                   setTypingStatus("Robot")
                 },
-                'Robot: We produce food for Chinchillas',
+                'Robot: There are 8 billion people in the world.',
                 2000, () => {
                   setTypingStatus("Arthur")
                 },

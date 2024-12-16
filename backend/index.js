@@ -115,11 +115,16 @@ app.get("/api/chats/:id", requireAuth(), async (req, res) => {
 app.put("/api/chats/:id", requireAuth(), async (req, res) => {
     const userId = req.auth.userId;
   
-    const { question, answer, img } = req.body;
+    const { question, answer, img, isVoiceInput } = req.body;
   
     const newItems = [
       ...(question
-        ? [{ role: "user", parts: [{ text: question }], ...(img && { img }) }]
+        ? [{
+            role: "user",
+            parts: [{ text: question }],
+            ...(img && { img }),
+            ...(isVoiceInput && { isVoiceInput })
+          }]
         : []),
       { role: "model", parts: [{ text: answer }] },
     ];

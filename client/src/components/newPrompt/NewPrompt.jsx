@@ -5,10 +5,19 @@ import { IKImage } from 'imagekitio-react';
 import model from '../../lib/gemini';
 import Markdown from "react-markdown"
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import VoiceChat from '../voiceChat/VoiceChat';
 
 const NewPrompt = ({ data }) => {
     const [question,setQuestion] = useState("");
     const [answer,setAnswer] = useState("");
+    const [isVoiceInput, setIsVoiceInput] = useState(false);
+
+    const handleVoiceInput = (text) => {
+        if (text) {
+          setIsVoiceInput(true);
+          add(text, false);
+        }
+    };
 
     const [img, setImg] = useState({
         isLoading: false,
@@ -19,15 +28,19 @@ const NewPrompt = ({ data }) => {
 
     const chat = model.startChat({
         history: [
-            data?.history.map(({ role, parts }) => ({
-                role,
-                parts: [{ text: parts[0].text }],
-            })),
+            {
+                role: "user",
+                parts: [{ text: "Hello, I have 2 dogs in my house."}],
+            },
+            {
+                role: "model",
+                parts: [{ text: "Great to meet you. What would you like to know?" }],
+            },
         ],
         generationConfig: {
-          // maxOutputTokens: 100,
-        },
-    });
+            // maxOutputTokens: 100,
+        }
+    })
 
     const endRef = useRef(null);
     const formRef = useRef(null);
@@ -50,6 +63,7 @@ const NewPrompt = ({ data }) => {
                     question: question.length ? question : undefined,
                     answer,
                     img: img.dbData?.filePath || undefined,
+                    isVoiceInput,
                 }),
             }).then((res) => res.json());
         },
@@ -60,6 +74,7 @@ const NewPrompt = ({ data }) => {
                     formRef.current.reset();
                     setQuestion("");
                     setAnswer("");
+                    setIsVoiceInput(false);
                     setImg({
                         isLoading: false,
                         error: "",
@@ -91,6 +106,8 @@ const NewPrompt = ({ data }) => {
             mutation.mutate();
         } catch (err) {
             console.log(err);
+        } finally {
+            setIsVoiceInput(false); // Reset the flag after mutation
         }
     };
 
@@ -131,10 +148,11 @@ const NewPrompt = ({ data }) => {
             <form className="newForm" onSubmit={handleSubmit} ref={formRef}>
                 <Upload setImg={setImg}/>
                 <input id='file' type="file" multiple={false} hidden/>
-                <input type="text" name='text' placeholder='Ask anything...' />
+                <input type="text" name='text' autocomplete="off" placeholder='Ask anything...' />
                 <button>
                     <img src="/arrow.png" alt="" />
                 </button>
+                <VoiceChat onVoiceInput={handleVoiceInput} />
             </form>
         </>
     )
