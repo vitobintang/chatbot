@@ -1,21 +1,8 @@
 {
-  "version": 2,
-  "builds": [
+  "reqrites": [
     {
-      "src": "./index.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "**",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "./src/**",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "./public",
-      "use": "@vercel/static"
+      "source": "/(.*)",
+      "destination": "/"
     }
   ]
 }
